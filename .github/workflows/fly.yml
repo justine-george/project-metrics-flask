@@ -21,10 +21,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-    #   - name: Deploy
-    #     uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy
+        uses: superfly/flyctl-actions/setup-flyctl@master
 
-    #   - name: Execute deployment
-    #     run: flyctl deploy --remote-only
-    #     env:
-    #       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Execute deployment
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

@@ -7,14 +7,14 @@ This flask API provides a way to retrieve metrics for my side projects, currentl
 - Get project metrics:
 
   ```
-  GET /projects/usercount?name=project_name`
+  GET /projects/usercount?name=project_name
   ```
 
   Response JSON:
 
   ```json
   {
-    "user_count": 123
+    "user_count": "123"
   }
   ```
 

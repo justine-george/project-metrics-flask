@@ -21,8 +21,10 @@ def get_extension_user_count(extensionId):
         return jsonify({'error': 'Empty extensionId parameter'}), 400
 
     # scrape the webstore for the user count
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     chromeWebStoreUrl = f"https://chromewebstore.google.com/detail/{extensionId}"
-    response = requests.get(chromeWebStoreUrl)
+    response = requests.get(chromeWebStoreUrl, headers=headers)
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
         user_count_meta = soup.find('meta', itemprop='interactionCount')

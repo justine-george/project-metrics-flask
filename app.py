@@ -16,18 +16,24 @@ projects = load_projects()
 
 @app.route('/extensions/<extensionId>/usercount', methods=['GET'])
 def get_extension_user_count(extensionId):
-
     if not extensionId:
         return jsonify({'error': 'Empty extensionId parameter'}), 400
 
     # scrape the webstore for the user count
-    if extensionId == 'gpibgniomobngodpnikhheifblbpbbah':
-        chromeWebStoreUrl = f"https://chromewebstore.google.com/detail/tab-keeper-chrome-tab-man/{extensionId}"
-    else:
-        chromeWebStoreUrl = f"https://chrome.google.com/webstore/detail/{extensionId}"
-    response = requests.get(chromeWebStoreUrl)
-    if response.status_code == 200:
+    chromeWebStoreUrl = f"https://chrome.google.com/webstore/detail/{extensionId}"
+
+    # redirect loop detection - find a way to handle this better
+    response = requests.get(chromeWebStoreUrl, allow_redirects=False)
+    if response.status_code == 302 or response.status_code == 301:
+        project = list(
+            filter(lambda t: t["extensionId"] == extensionId, projects))
+        if len(project) == 0:
+            return jsonify({'error': 'Extension not found'}), 404
+        return jsonify({'users': project[0]['metrics']['users']})
+
+    elif response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
+        print(soup)
         user_count_meta = soup.find('meta', itemprop='interactionCount')
 
         if user_count_meta:

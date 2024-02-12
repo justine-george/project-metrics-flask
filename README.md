@@ -1,6 +1,6 @@
-# Metrics API for Chrome Extensions
+# Metrics Flask API
 
-This Flask API is designed to retrieve user counts for Chrome extensions. It is utilized on the jgeorge.dev homepage (at build-time) and for generating shield badges.
+This Flask API is designed to retrieve user metrics for my projects. It is utilized on the jgeorge.dev homepage (at build-time) and for generating shield badges.
 
 ## Usage
 

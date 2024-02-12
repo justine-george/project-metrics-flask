@@ -1,34 +1,38 @@
-# Metrics API for side projects
+# Metrics API for Chrome Extensions
 
-This flask API provides a way to retrieve metrics for my side projects, currently used in shield badge generation.
+This Flask API is designed to retrieve user counts for Chrome extensions. It is utilized on the jgeorge.dev homepage (at build-time) and for generating shield badges.
 
 ## Usage
 
-- Get project metrics:
+### Get User Count for Chrome Extensions
 
-  ```
-  GET /projects/usercount?name=project_name
-  ```
+```
+GET /extensions/{extensionId}/usercount
+```
 
-  Response JSON:
+Note: Replace `{extensionId}` with the actual ID of the Chrome extension you're inquiring about.
 
-  ```json
-  {
-    "user_count": "123"
-  }
-  ```
+#### Response JSON:
+
+```json
+{
+  "user_count": "123"
+}
+```
 
 ## Deployment
 
-This API is deployed on fly.io, and can be accessed at https://project-metrics-flask.fly.dev/
+This API is currently deployed on fly.io and can be accessed at:
 
-To deploy, run
+https://project-metrics-flask.fly.dev/
+
+To deploy the application, execute:
 
 ```bash
 flyctl deploy
 ```
 
-To view logs, run
+To view the application logs, run:
 
 ```bash
 flyctl logs

@@ -1,0 +1,29 @@
+name: Daily Deployment Trigger
+
+on:
+  schedule:
+    - cron: "45 1 * * *" # Runs at 1:45 AM UTC (7:45 PM CST) every day.
+
+jobs:
+  trigger-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure user name and email
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Update fallback user metrics
+        run: |
+          jq '.[].metrics.users |= ( tonumber + 2 | tostring )' ./data/projects.json > temp.json && mv temp.json ./data/projects.json
+        shell: bash
+
+      - name: Create empty commit and push
+        run: |
+          echo "Last deployment triggered at $(date -u)" > DEPLOYMENT_TRIGGER.md
+          git add DEPLOYMENT_TRIGGER.md ./data/projects.json
+          git commit -m "Daily deployment trigger with user metrics update"
+          git push

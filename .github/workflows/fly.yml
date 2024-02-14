@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: "50 1 * * *" # Runs at 1:50 AM UTC (7:50 PM CST) every day.
 jobs:
   deploy:
     name: Deploy app

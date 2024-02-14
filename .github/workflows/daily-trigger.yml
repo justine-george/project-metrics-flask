@@ -16,6 +16,9 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
 
+      - name: Pull latest changes from the main branch
+        run: git pull origin main
+
       - name: Update fallback user metrics
         run: |
           jq '.[].metrics.users |= ( tonumber + 2 | tostring )' ./data/projects.json > temp.json && mv temp.json ./data/projects.json
@@ -26,4 +29,4 @@ jobs:
           echo "Last deployment triggered at $(date -u)" > DEPLOYMENT_TRIGGER.md
           git add DEPLOYMENT_TRIGGER.md ./data/projects.json
           git commit -m "Daily deployment trigger with user metrics update"
-          git push
+          git push origin main

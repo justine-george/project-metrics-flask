@@ -21,7 +21,7 @@ jobs:
 
       - name: Update fallback user metrics
         run: |
-          jq '.[].metrics.users |= ( tonumber + 5 | tostring )' ./data/projects.json > temp.json && mv temp.json ./data/projects.json
+          jq '.[].metrics.users |= ( tonumber + 0 | tostring )' ./data/projects.json > temp.json && mv temp.json ./data/projects.json
         shell: bash
 
       - name: Create empty commit and push

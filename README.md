@@ -22,18 +22,8 @@ Note: Replace `{extensionId}` with the actual ID of the Chrome extension you're 
 
 ## Deployment
 
-This API is currently deployed on fly.io and can be accessed at:
+This API is currently deployed on Render and can be accessed at:
 
-https://project-metrics-flask.fly.dev/
+https://project-metrics-flask.onrender.com/
 
-To deploy the application, execute:
-
-```bash
-flyctl deploy
-```
-
-To view the application logs, run:
-
-```bash
-flyctl logs
-```
+Deployments are managed through the Render dashboard.
